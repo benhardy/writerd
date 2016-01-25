@@ -18,19 +18,21 @@ object WordKind {
 }
 
 trait Corpus {
-  def suggest(kind:WordKind): String
+  def suggest(kind:WordKind): Suggestion
 }
 
 object Corpus {
   def apply = {
     new Corpus {
-      override def suggest(kind: WordKind): String = {
-        kind match {
-          case VERB => "run"
-          case NOUN => "dog"
-          case ADJECTIVE => "hungry"
-          case ADVERB => "quickly"
-        }
+      import Word.toWord
+      val queues = Map[WordKind, WordQueue](
+        VERB -> new WordQueue(List("eat", "lick", "enjoy")),
+        NOUN -> new WordQueue(List("dog", "cat", "mouse")),
+        ADVERB -> new WordQueue(List("greedibly", "quickly", "lazily")),
+        ADJECTIVE -> new WordQueue(List("gluttonous", "fast", "big"))
+      )
+      override def suggest(kind: WordKind): Suggestion = {
+        queues(kind).suggest
       }
     }
   }

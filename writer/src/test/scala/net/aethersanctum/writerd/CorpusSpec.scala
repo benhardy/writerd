@@ -4,9 +4,9 @@ import net.aethersanctum.writerd.WordKind.VERB
 
 class CorpusSpec extends BaseSpec {
   describe("A Corpus") {
-    it("can provide verbs") {
+    it("can make suggestions") {
       val corpus = Corpus.apply
-      corpus.suggest(VERB) should be === "run"
+      val suggestion: Suggestion = corpus.suggest(VERB)
     }
   }
 }
