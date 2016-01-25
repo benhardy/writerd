@@ -4,6 +4,10 @@ import net.aethersanctum.writerd.WordKind.{ADVERB, ADJECTIVE, NOUN, VERB}
 
 case class Word(appearance:String)
 
+object Word {
+  implicit def toWord(str: String): Word = Word(str)
+}
+
 sealed trait WordKind
 
 object WordKind {
