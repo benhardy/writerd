@@ -15,6 +15,15 @@ object WordKind {
   case object NOUN extends WordKind
   case object ADVERB extends WordKind
   case object ADJECTIVE extends WordKind
+
+  val reverse = Map(
+    "VERB" -> VERB,
+    "NOUN" -> NOUN,
+    "ADVERB" -> ADVERB,
+    "ADJECTIVE" -> ADJECTIVE
+  )
+
+  def fromString(s:String) = reverse(s)
 }
 
 trait Corpus {
@@ -22,18 +31,20 @@ trait Corpus {
 }
 
 object Corpus {
-  def apply = {
+  def apply(items: (WordKind, WordQueue)*): Corpus = apply(items.toMap)
+
+  def apply(map:Map[WordKind, WordQueue]): Corpus = {
     new Corpus {
-      import Word.toWord
-      val queues = Map[WordKind, WordQueue](
-        VERB -> new WordQueue(List("eat", "lick", "enjoy")),
-        NOUN -> new WordQueue(List("dog", "cat", "mouse")),
-        ADVERB -> new WordQueue(List("greedibly", "quickly", "lazily")),
-        ADJECTIVE -> new WordQueue(List("gluttonous", "fast", "big"))
-      )
       override def suggest(kind: WordKind): Suggestion = {
-        queues(kind).suggest
+        map(kind).suggest
       }
     }
   }
+
+  def example: Corpus = apply(
+    VERB -> new WordQueue(List("eat", "lick", "enjoy")),
+    NOUN -> new WordQueue(List("dog", "cat", "mouse")),
+    ADVERB -> new WordQueue(List("greedibly", "quickly", "lazily")),
+    ADJECTIVE -> new WordQueue(List("gluttonous", "fast", "big"))
+  )
 }
