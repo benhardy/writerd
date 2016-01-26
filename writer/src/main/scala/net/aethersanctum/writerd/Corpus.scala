@@ -40,11 +40,12 @@ object Corpus {
       }
     }
   }
+  implicit val randomSource: (Unit) => Double = (Unit) => math.random
 
   def example: Corpus = apply(
-    VERB -> new WordQueue(List("eat", "lick", "enjoy")),
-    NOUN -> new WordQueue(List("dog", "cat", "mouse")),
-    ADVERB -> new WordQueue(List("greedibly", "quickly", "lazily")),
-    ADJECTIVE -> new WordQueue(List("gluttonous", "fast", "big"))
+    VERB -> WordQueue("eat", "lick", "enjoy"),
+    NOUN -> WordQueue("dog", "cat", "mouse"),
+    ADVERB -> WordQueue("greedibly", "quickly", "lazily"),
+    ADJECTIVE -> WordQueue("gluttonous", "fast", "big")
   )
 }
