@@ -1,21 +1,14 @@
 package net.aethersanctum.writerd
 
-import org.mockito.Mockito.when
-import org.scalatest.mock.MockitoSugar._
-
 class WordQueueSpec extends BaseSpec {
   describe("a WordQueue") {
     it("should make suggestions") {
-      implicit val randomizer: (Unit)=>Double = mock[Unit=>Double]
-      when(randomizer.apply())
-        .thenReturn(0.8)
-        .thenReturn(0.1)
-        .thenReturn(0.5)
+      implicit val randomizer = TestUtil.mockRandom(0.8, 0.1, 0.5)
 
       val q = WordQueue("a", "b", "c")
-      q.suggest.word should be === Word("c")
-      q.suggest.word should be === Word("a")
-      q.suggest.word should be === Word("b")
+      q.suggest should be === Suggestion("c")
+      q.suggest should be === Suggestion("a")
+      q.suggest should be === Suggestion("b")
     }
   }
 }
