@@ -16,7 +16,7 @@ class WordQueueSpec extends BaseSpec {
 
       val q = WordQueue("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
 
-      def filter(w:Word) = w.appearance == "g"
+      def filter(w:Word) = w.word == "g"
 
       q.suggest(filter) should be === Suggestion("g")
     }

@@ -2,10 +2,10 @@ package net.aethersanctum.writerd
 
 import net.aethersanctum.writerd.WordKind.{ADVERB, ADJECTIVE, NOUN, VERB}
 
-case class Word(appearance:String)
+case class Word(word:String, attributes:Map[String,String])
 
 object Word {
-  implicit def toWord(str: String): Word = Word(str)
+  implicit def toWord(str: String): Word = Word(str, Map())
 }
 
 sealed trait WordKind
@@ -47,5 +47,9 @@ object Corpus {
     NOUN -> WordQueue("dog", "cat", "mouse"),
     ADVERB -> WordQueue("greedibly", "quickly", "lazily"),
     ADJECTIVE -> WordQueue("gluttonous", "fast", "big")
+  )
+
+  def default = Corpus(
+    NOUN -> WordQueue.loadResource("nouns-negative.json")
   )
 }

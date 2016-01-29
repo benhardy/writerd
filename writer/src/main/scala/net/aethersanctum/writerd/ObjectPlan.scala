@@ -7,11 +7,11 @@ class ObjectPlan(chances:ObjectPlan.Chances, corpus:Corpus, randomizer:(Unit)=>D
   override def write(buf:StringBuilder) = {
     if (randomizer() < chances.adjectiveAllowed) {
       if (randomizer() < chances.adverbAllowed) {
-        buf.append(corpus.suggest(ADVERB).word.appearance).append(' ')
+        buf.append(corpus.suggest(ADVERB).word.word).append(' ')
       }
-      buf.append(corpus.suggest(ADJECTIVE).word.appearance).append(' ')
+      buf.append(corpus.suggest(ADJECTIVE).word.word).append(' ')
     }
-    buf.append(corpus.suggest(NOUN).word.appearance)
+    buf.append(corpus.suggest(NOUN).word.word)
   }
 }
 
