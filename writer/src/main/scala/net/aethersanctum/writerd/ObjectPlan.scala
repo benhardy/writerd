@@ -21,7 +21,7 @@ object ObjectPlan {
     new ObjectPlan(chances, corpus, randomizer)
   }
   def apply()(implicit randomizer:Unit=>Double, corpus:Corpus):ObjectPlan = {
-    new ObjectPlan(Chances(1,1), corpus, randomizer)
+    new ObjectPlan(Chances(adjectiveAllowed = 0.7, adverbAllowed = 0.5), corpus, randomizer)
   }
   case class Chances(
                     adjectiveAllowed: Double,

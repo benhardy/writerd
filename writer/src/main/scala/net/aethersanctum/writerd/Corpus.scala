@@ -1,6 +1,7 @@
 package net.aethersanctum.writerd
 
 import net.aethersanctum.writerd.WordKind.{ADVERB, ADJECTIVE, NOUN, VERB}
+import net.aethersanctum.writerd.WordQueue.loadResource
 
 case class Word(word:String, attributes:Map[String,String])
 
@@ -50,6 +51,8 @@ object Corpus {
   )
 
   def default = Corpus(
-    NOUN -> WordQueue.loadResource("nouns-negative.json")
+    NOUN -> loadResource("nouns-negative.json"),
+    ADJECTIVE -> loadResource("adjectives-negative.json"),
+    ADVERB -> loadResource("adverbs.json")
   )
 }
