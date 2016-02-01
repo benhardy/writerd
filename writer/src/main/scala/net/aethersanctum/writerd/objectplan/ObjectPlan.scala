@@ -1,6 +1,7 @@
-package net.aethersanctum.writerd
+package net.aethersanctum.writerd.objectplan
 
-import net.aethersanctum.writerd.WordKind.{NOUN, ADJECTIVE, ADVERB}
+import net.aethersanctum.writerd.{Corpus, Plan}
+import net.aethersanctum.writerd.WordKind.{ADJECTIVE, ADVERB, NOUN}
 
 class ObjectPlan(chances:ObjectPlan.Chances, corpus:Corpus, randomizer:(Unit)=>Double) extends Plan {
   val noun = corpus.suggest(NOUN)

@@ -1,6 +1,7 @@
 package net.aethersanctum.writerd
 
 import net.aethersanctum.writerd.WordKind.{NOUN, ADVERB, ADJECTIVE}
+import net.aethersanctum.writerd.objectplan.ObjectPlan
 
 class ObjectPlanSpec extends BaseSpec {
 
