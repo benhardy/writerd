@@ -1,6 +1,6 @@
 package net.aethersanctum.writerd
 
-import net.aethersanctum.writerd.WordKind.{NOUN, ADVERB, ADJECTIVE}
+import net.aethersanctum.writerd.WordKind.{CONTAINER, NOUN, ADVERB, ADJECTIVE}
 import net.aethersanctum.writerd.objectplan.ObjectPlan
 
 class ObjectPlanSpec extends BaseSpec {
@@ -10,7 +10,8 @@ class ObjectPlanSpec extends BaseSpec {
   implicit val simpleCorpus = Corpus(
     ADVERB -> WordQueue("really")(Unit=>0),
     ADJECTIVE -> WordQueue("big")(Unit=>0),
-    NOUN -> WordQueue("dog")(Unit=>0)
+    NOUN -> WordQueue("dog")(Unit=>0),
+    CONTAINER -> WordQueue("box")(Unit=>0)
   )
 
   describe("an ObjectPlan") {
@@ -64,6 +65,17 @@ class ObjectPlanSpec extends BaseSpec {
         val plan = ObjectPlan(chances)
         val result = plan.write(new StringBuilder).toString()
         result should be === "dog"
+      }
+    }
+    describe("container handling") {
+
+      it("will do both when allowed") {
+        val chances = ObjectPlan.Chances(adjectiveThreshold = 0.5, adverbThreshold = 0.5, containerThreshold = 0.5)
+        implicit val randomizer = TestUtil.mockRandom(0.1, 0.9) //adverb not happening
+
+        val plan = ObjectPlan(chances)
+        val result = plan.write(new StringBuilder).toString()
+        result should be === "box of dog"
       }
     }
 

@@ -1,6 +1,6 @@
 package net.aethersanctum.writerd
 
-import net.aethersanctum.writerd.WordKind.{ADVERB, ADJECTIVE, NOUN, VERB}
+import net.aethersanctum.writerd.WordKind._
 import net.aethersanctum.writerd.WordQueue.loadResource
 
 case class Word(word:String, attributes:Map[String,String])
@@ -16,12 +16,14 @@ object WordKind {
   case object NOUN extends WordKind
   case object ADVERB extends WordKind
   case object ADJECTIVE extends WordKind
+  case object CONTAINER extends WordKind
 
   val reverse = Map(
     "VERB" -> VERB,
     "NOUN" -> NOUN,
     "ADVERB" -> ADVERB,
-    "ADJECTIVE" -> ADJECTIVE
+    "ADJECTIVE" -> ADJECTIVE,
+    "CONTAINER" -> ADJECTIVE
   )
 
   def fromString(s:String) = reverse(s)
@@ -52,12 +54,14 @@ object Corpus {
     VERB -> WordQueue("eat", "lick", "enjoy"),
     NOUN -> WordQueue("dog", "cat", "mouse"),
     ADVERB -> WordQueue("greedibly", "quickly", "lazily"),
-    ADJECTIVE -> WordQueue("gluttonous", "fast", "big")
+    ADJECTIVE -> WordQueue("gluttonous", "fast", "big"),
+    CONTAINER -> WordQueue("bucket", "gallon", "barrel")
   )
 
   def default = Corpus(
     NOUN -> loadResource("nouns-negative.json", "nouns-neutral-positive.json"),
     ADJECTIVE -> loadResource("adjectives-negative.json"),
-    ADVERB -> loadResource("adverbs.json")
+    ADVERB -> loadResource("adverbs.json"),
+    CONTAINER -> loadResource("containers.json")
   )
 }
