@@ -29,6 +29,7 @@ object WordKind {
 
 trait Corpus {
   def suggest(kind:WordKind): Suggestion
+  def suggest(kind:WordKind, filter:Word=>Boolean): Suggestion
 }
 
 object Corpus {
@@ -39,8 +40,12 @@ object Corpus {
       override def suggest(kind: WordKind): Suggestion = {
         map(kind).suggest
       }
+      override def suggest(kind: WordKind, filter: Word=>Boolean): Suggestion = {
+        map(kind).suggest(filter)
+      }
     }
   }
+
   implicit val randomSource: (Unit) => Double = (Unit) => math.random
 
   def example: Corpus = apply(
@@ -51,7 +56,7 @@ object Corpus {
   )
 
   def default = Corpus(
-    NOUN -> loadResource("nouns-negative.json"),
+    NOUN -> loadResource("nouns-negative.json", "nouns-neutral-positive.json"),
     ADJECTIVE -> loadResource("adjectives-negative.json"),
     ADVERB -> loadResource("adverbs.json")
   )

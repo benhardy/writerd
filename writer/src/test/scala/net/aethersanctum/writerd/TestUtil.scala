@@ -7,9 +7,9 @@ object TestUtil {
   /**
     * Create a fake random number generator that returns the numbers in order
     */
-  def mockRandom(probs:Double*): (Unit) => Double = {
+  def mockRandom(firstProb:Double, probs:Double*): (Unit) => Double = {
     val randomator = mock[Unit => Double]
-    probs.foldLeft(when(randomator())) { (r, num) => r.thenReturn(num) }
+    when(randomator.apply()).thenReturn(firstProb, probs:_*)
     randomator
   }
 }

@@ -36,9 +36,16 @@ object WordQueue {
   def apply(words: Word*)(implicit randomSource: Unit=>Double) = {
     new WordQueue(randomSource, words.toList)
   }
-  def loadResource(path:String)(implicit randomSource: Unit=>Double): WordQueue = {
-    val list = objectMapper.readValue[List[Word]](resourceReader(path))
-    new WordQueue(randomSource, list)
+
+  def loadResource(paths:String*)(implicit randomSource: Unit=>Double): WordQueue = {
+    val combined = paths.map(resourceReader)
+        .map(parseWordInput)
+        .reduce(_ ++ _)
+    new WordQueue(randomSource, combined)
+  }
+
+  def parseWordInput(res: BufferedReader): List[Word] = {
+    objectMapper.readValue[List[Word]](res)
   }
 
   private def resourceReader(path: String): BufferedReader = {

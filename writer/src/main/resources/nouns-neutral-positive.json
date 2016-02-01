@@ -1,0 +1,12 @@
+[
+  {"word": "person", "attributes": { "alignment": "neutral", "is a": "person" } },
+  {"word": "human", "attributes": { "alignment": "neutral", "is a": "person" } },
+  {"word": "soul", "attributes": { "alignment": "neutral", "is a": "person" } },
+  {"word": "wonder", "attributes": { "alignment": "neutral" } },
+  {"word": "light", "attributes": { "alignment": "positive" } },
+  {"word": "gift", "attributes": { "alignment": "positive" } },
+  {"word": "wonder", "attributes": { "alignment": "positive" } },
+  {"word": "joy", "attributes": { "alignment": "positive" } },
+  {"word": "heart", "attributes": { "alignment": "neutral" } },
+  {"word": "being", "attributes": { "alignment": "neutral", "is a": "person" } }
+]
